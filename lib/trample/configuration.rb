@@ -41,7 +41,6 @@ module Trample
 
     def request_filter(&block)
       if block.is_a?(Proc)
-        puts ("Request Filter: "+block.to_s)
         @request_filter = block
       end
       
@@ -50,7 +49,6 @@ module Trample
 
     def response_processor(&block)
       if block.is_a?(Proc)
-        puts ("Response Processor: "+block.to_s)
         @response_processor = block
       end
       

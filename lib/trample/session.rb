@@ -1,5 +1,3 @@
-require Hpricot
-
 module Trample
   class Session
     include Logging
