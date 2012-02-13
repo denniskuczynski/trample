@@ -30,7 +30,7 @@ module Trample
       def interpolated_url
         params = parameters # cache called proc
         url    = @url.dup
-        url.scan(/\:\w+/).each do |m|
+        url.scan(/\:[A-Za-z_]\w+/).each do |m|
           url.gsub!(m, params[m.gsub(/:/, '').to_sym].to_s)
         end
         url

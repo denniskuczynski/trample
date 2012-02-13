@@ -12,9 +12,14 @@ module Trample
     def trample
       logger.info "Starting trample..."
 
-      config.concurrency.times do
+      config.concurrency.times do |i|
+        if @config.delay
+          logger.info "Sleeping for #{@config.delay}"
+          sleep(@config.delay)
+        end
         thread = Thread.new(@config) do |c|
-          Session.new(c).trample
+          session_time = Session.new(c, i).trample
+          logger.info "SESSION #{i} #{session_time}"
         end
         threads << thread
       end

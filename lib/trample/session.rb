@@ -1,11 +1,16 @@
+require Hpricot
+
 module Trample
   class Session
     include Logging
     include Timer
+    
+    attr_reader :id, :config, :response_times, :cookies, :last_response
 
-    attr_reader :config, :response_times, :cookies, :last_response
+    HTTP_ACCEPT_HEADER = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 
-    def initialize(config)
+    def initialize(config, instance_number)
+      @id = instance_number
       @config         = config
       @response_times = []
       @cookies        = {}
@@ -32,15 +37,28 @@ module Trample
       def request(page)
         time do
           @last_response = send(page.request_method, page)
+          if @config.response_processor
+            @config.response_processor.call(@session_id, @last_response)
+          end
         end
       end
 
       def get(page)
-        RestClient.get(page.url, :cookies => cookies)
+        url = page.url
+        params = page.parameters
+        if @config.request_filter
+          @config.request_filter.call(@session_id, url, params)
+        end
+        RestClient.get(url, :cookies => cookies, :accept => HTTP_ACCEPT_HEADER)
       end
 
       def post(page)
-        RestClient.post(page.url, page.parameters, :cookies => cookies)
+        url = page.url
+        params = page.parameters
+        if @config.request_filter
+          @config.request_filter.call(@session_id, url, params)
+        end
+        RestClient.post(url, page.parameters, :cookies => cookies, :accept => HTTP_ACCEPT_HEADER)
       end
   end
 end

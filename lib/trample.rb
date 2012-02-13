@@ -1,6 +1,7 @@
 gem 'sevenwire-rest-client'
 require 'log4r'
 require 'rest_client'
+require 'hpricot'
 
 module Trample
   autoload :Configuration, File.dirname(__FILE__) + "/trample/configuration"
@@ -10,6 +11,8 @@ module Trample
   autoload :Cli, File.dirname(__FILE__) + "/trample/cli"
   autoload :Logging, File.dirname(__FILE__) + "/trample/logging"
   autoload :Timer, File.dirname(__FILE__) + "/trample/timer"
+  autoload :BaseHandler, File.dirname(__FILE__) + "/trample/base_handler"
+  autoload :RailsHandler, File.dirname(__FILE__) + "/trample/rails_handler"
 
   class << self
     attr_reader :current_configuration
