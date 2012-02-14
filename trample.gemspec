@@ -29,6 +29,8 @@ Gem::Specification.new do |s|
      "lib/trample/runner.rb",
      "lib/trample/session.rb",
      "lib/trample/timer.rb",
+     "lib/trample/handler/base_handler.rb",
+     "lib/trample/handler/rails_handler.rb",
      "test/cli_test.rb",
      "test/configuration_test.rb",
      "test/fixtures/basic_config.rb",
@@ -40,6 +42,7 @@ Gem::Specification.new do |s|
      "test/test_helper.rb",
      "test/timer_test.rb",
      "test/trample_test.rb",
+     "scripts/trample.awk",
      "trample.gemspec"
   ]
   s.has_rdoc = true
