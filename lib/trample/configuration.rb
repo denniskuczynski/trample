@@ -38,7 +38,7 @@ module Trample
     def login
       if block_given?
         yield
-        @login = pages.pop
+        @login = pages.shift
       end
 
       @login
