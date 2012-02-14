@@ -11,7 +11,7 @@ module Trample
     end
 
     def trample
-      logger.info "Starting trample..."
+      logger.info "Trample starting..."
 
       trample_time = time do
         config.concurrency.times do |i|
