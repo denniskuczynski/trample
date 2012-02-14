@@ -49,7 +49,7 @@ module Trample
         time do
           @last_response = send(page.request_method, page)
           if @config.response_processor
-            @config.response_processor.call(@session_id, @last_response)
+            @config.response_processor.call(@session_id, page.url, @last_response)
           end
         end
       end
