@@ -1,6 +1,7 @@
 module Trample
   class Runner
     include Logging
+    include Timer
 
     attr_reader :config, :threads
 
@@ -10,23 +11,26 @@ module Trample
     end
 
     def trample
-      logger.info "Starting trample... #{Time.now.getutc}"
+      logger.info "Starting trample..."
 
-      config.concurrency.times do |i|
-        if @config.delay
-          logger.info "Sleeping for #{@config.delay}"
-          sleep(@config.delay)
+      trample_time = time do
+        config.concurrency.times do |i|
+          if @config.delay
+            logger.info "Sleeping for #{@config.delay}"
+            sleep(@config.delay)
+          end
+          thread = Thread.new(@config) do |c|
+            session_time = Session.new(c, i).trample
+            logger.info "SESSION #{i} #{session_time}"
+          end
+          threads << thread
         end
-        thread = Thread.new(@config) do |c|
-          session_time = Session.new(c, i).trample
-          logger.info "SESSION #{i} #{session_time}"
-        end
-        threads << thread
+
+        threads.each { |t| t.join }
       end
 
-      threads.each { |t| t.join }
-
-      logger.info "Trample completed... #{Time.now.getutc}"
+      logger.info "Trample completed..."
+      logger.info "TRAMPLE #{trample_time}"
     end
   end
 end

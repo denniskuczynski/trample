@@ -10,7 +10,6 @@ module Trample
     def initialize(config, instance_number)
       @id = instance_number
       @config         = config
-      @response_times = []
       @cookies        = {}
     end
 
@@ -31,7 +30,6 @@ module Trample
     protected
       def hit(page)
         response_time = request(page)
-        response_times << response_time
         # this is ugly, but it's the only way that I could get the test to pass
         # because rr keeps a reference to the arguments, not a copy. ah well.
         @cookies = cookies.merge(last_response.cookies)
