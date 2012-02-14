@@ -3,7 +3,7 @@ module Trample
   class RailsHandler < BaseHandler
 
     def self.request_filter
-      Proc.new do |session_id, url, params|
+      Proc.new do |session_id, method, url, params|
         params.merge!(:authenticity_token =>self.getVal(session_id, 'csrf_token'))
       end
     end
