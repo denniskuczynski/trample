@@ -42,7 +42,7 @@ module Trample
         if @config.timeout
           was_timeout = response_time > @config.timeout
         end
-        logger.info "#{page.request_method.to_s.upcase} #{page.url} #{response_times.last}s #{last_response.code} #{was_timeout}"
+        logger.info "#{page.request_method.to_s.upcase} #{page.url} #{response_time}s #{last_response.code} #{was_timeout}"
       end
 
       def request(page)
