@@ -27,12 +27,12 @@ module Trample
       @timeout
     end
 
-    def get(url, &block)
-      @pages << Page.new(:get, url, block || {})
+    def get(url, think_time=0, &block)
+      @pages << Page.new(:get, url, think_time, block || {})
     end
 
-    def post(url, params = nil, &block)
-      @pages << Page.new(:post, url, params || block)
+    def post(url, think_time=0, params = nil, &block)
+      @pages << Page.new(:post, url, think_time, params || block)
     end
 
     def login

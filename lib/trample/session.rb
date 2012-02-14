@@ -19,6 +19,10 @@ module Trample
         @config.iterations.times do
           iteration_time = time do
             @config.pages.each do |p|
+              if p.think_time and p.think_time > 0
+                logger.info "Thinking for #{p.think_time}"
+                sleep(p.think_time)
+              end
               hit p
             end
           end
