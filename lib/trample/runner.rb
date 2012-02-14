@@ -29,8 +29,8 @@ module Trample
         threads.each { |t| t.join }
       end
 
-      logger.info "Trample completed..."
       logger.info "TRAMPLE #{trample_time}"
+      logger.info "Trample completed..."
     end
   end
 end
