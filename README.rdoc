@@ -1,5 +1,8 @@
 = trample
 
+02/14/2012 -- Fork Notes.  This is a fork of the original Trample code base by James Golick, extended to add a couple of new features
+
+
 Trample is a flexible load simulation tool. 
 
 Most load sim tools make requests to a static list of urls. They spawn n threads and make requests to the urls on the list in succession, in each thread. Unfortunately, though, if your applicaition makes use of any kind of caching (including your database's internal caching facilities), this kind of load simulation is unrealistic.
@@ -37,6 +40,7 @@ Trample uses a ruby DSL for configuration.
     concurrency 5
     iterations  10
     delay 1
+    timeout 5
 	request_filter &Trample::RailsHandler::request_filter
 	response_processor &Trample::RailsHandler::response_processor
     login do
@@ -53,7 +57,12 @@ Trample uses a ruby DSL for configuration.
     end
   end
 
-The above configuration will start 5 (concurrency) sessions with a delay of 1 second between each session by logging in as a random user at the url in the login block. Then, it'll hit the two urls underneath it 10 (iterations) times during each session.
+The above configuration will,
+- start 5 (concurrency) sessions 
+- with a (delay) of 1 second between each session
+- any requests taking longer than 5 seconds (timeout) are marked as timed out in the logs
+- by logging in as a random user at the url in the (login) block. 
+- Then, it'll hit the two urls underneath it 10 (iterations) times during each session.
 
 To run trample, save your configuration somewhere and run:
 

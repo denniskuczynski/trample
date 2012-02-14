@@ -15,21 +15,32 @@ module Trample
     end
 
     def trample
-      hit @config.login unless @config.login.nil?
-      @config.iterations.times do
-        @config.pages.each do |p|
-          hit p
+      time do
+        hit @config.login unless @config.login.nil?
+        @config.iterations.times do
+          iteration_time = time do
+            @config.pages.each do |p|
+              hit p
+            end
+          end
+          logger.info "ITERATION #{@id} #{iteration_time}"
         end
       end
     end
 
     protected
       def hit(page)
-        response_times << request(page)
+        response_time = request(page)
+        response_times << response_time
         # this is ugly, but it's the only way that I could get the test to pass
         # because rr keeps a reference to the arguments, not a copy. ah well.
         @cookies = cookies.merge(last_response.cookies)
-        logger.info "#{page.request_method.to_s.upcase} #{page.url} #{response_times.last}s #{last_response.code}"
+
+        was_timeout = false
+        if @config.timeout
+          was_timeout = response_time > @config.timeout
+        end
+        logger.info "#{page.request_method.to_s.upcase} #{page.url} #{response_times.last}s #{last_response.code} #{was_timeout}"
       end
 
       def request(page)

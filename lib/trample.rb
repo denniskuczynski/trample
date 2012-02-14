@@ -11,8 +11,8 @@ module Trample
   autoload :Cli, File.dirname(__FILE__) + "/trample/cli"
   autoload :Logging, File.dirname(__FILE__) + "/trample/logging"
   autoload :Timer, File.dirname(__FILE__) + "/trample/timer"
-  autoload :BaseHandler, File.dirname(__FILE__) + "/trample/base_handler"
-  autoload :RailsHandler, File.dirname(__FILE__) + "/trample/rails_handler"
+  autoload :BaseHandler, File.dirname(__FILE__) + "/trample/handler/base_handler"
+  autoload :RailsHandler, File.dirname(__FILE__) + "/trample/handler/rails_handler"
 
   class << self
     attr_reader :current_configuration

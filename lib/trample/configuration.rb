@@ -21,6 +21,11 @@ module Trample
       @delay = value.first unless value.empty?
       @delay
     end
+    
+    def timeout(*value)
+      @timeout = value.first unless value.empty?
+      @timeout
+    end
 
     def get(url, &block)
       @pages << Page.new(:get, url, block || {})
@@ -61,6 +66,7 @@ module Trample
         other.concurrency == concurrency &&
         other.iterations  == iterations &&
         other.delay  == delay &&
+        other.timeout  == timeout &&
         other.request_filter  == request_filter &&
         other.response_processor  == response_processor
     end

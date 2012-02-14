@@ -10,7 +10,7 @@ module Trample
     end
 
     def trample
-      logger.info "Starting trample..."
+      logger.info "Starting trample... #{Time.now.getutc}"
 
       config.concurrency.times do |i|
         if @config.delay
@@ -26,7 +26,7 @@ module Trample
 
       threads.each { |t| t.join }
 
-      logger.info "Trample completed..."
+      logger.info "Trample completed... #{Time.now.getutc}"
     end
   end
 end
