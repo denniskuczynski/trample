@@ -69,7 +69,7 @@ module Trample
         if @config.request_filter
           @config.request_filter.call(@session_id, page.request_method, url, params)
         end
-        RestClient.post(url, page.parameters, :cookies => cookies, :accept => HTTP_ACCEPT_HEADER)
+        RestClient.post(url, params, :cookies => cookies, :accept => HTTP_ACCEPT_HEADER)
       end
   end
 end
