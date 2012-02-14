@@ -1,6 +1,6 @@
 module Trample
   class Page
-    attr_reader :request_method
+    attr_reader :request_method, :think_time
 
     def initialize(request_method, url, think_time, parameters = {})
       @request_method = request_method
