@@ -16,7 +16,7 @@ module Trample
       trample_time = time do
         config.concurrency.times do |i|
           if @config.delay
-            logger.info "Sleeping for #{@config.delay}"
+            logger.info "Delaying for #{@config.delay}"
             sleep(@config.delay)
           end
           thread = Thread.new(@config) do |c|
