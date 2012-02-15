@@ -69,11 +69,11 @@ The third optional parameter is the request parameters.
 A block of parameters can also be specified as the last argument.
 
 For example:
-post "http://yoursite.com/something"
-post "http://yoursite.com/something", 2  #with 2 second think time
-post "http://yoursite.com/something", 2, {:param=> "static"}  #with 2 second think time and static params
-post "http://yoursite.com/something", 2 do { :username => User.random.username } end   #with 2 second think time and dynamic block params
 
+  post "http://yoursite.com/something"
+  post "http://yoursite.com/something", 2  #with 2 second think time
+  post "http://yoursite.com/something", 2, {:param=> "static"}  #with 2 second think time and static params
+  post "http://yoursite.com/something", 2 do { :username => User.random.username } end   #with 2 second think time and dynamic block params
 
 To run trample, save your configuration somewhere and run:
 
