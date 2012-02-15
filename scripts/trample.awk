@@ -15,13 +15,14 @@ BEGIN {
 	session_count = 0
 	timeout_count = 0
 	total_time = 0
+	TIMEOUT = 5
 }
 /GET/ {
 	request_count++
 	GET_request_count++
 	request_timings[request_count] = $5
 	request_statuses[request_count] = $6
-	if ($7 == "true") {
+	if ($5 > TIMEOUT) {
 	  timeout_count++
 	}    
 }
@@ -30,7 +31,7 @@ BEGIN {
 	POST_request_count++
 	request_timings[request_count] = $5
 	request_statuses[request_count] = $6
-	if ($7 == "true") {
+	if ($5 > TIMEOUT) {
 	  timeout_count++
 	}    
 }

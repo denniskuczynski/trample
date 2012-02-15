@@ -37,37 +37,30 @@ module Trample
         # this is ugly, but it's the only way that I could get the test to pass
         # because rr keeps a reference to the arguments, not a copy. ah well.
         @cookies = cookies.merge(last_response.cookies)
-
-        was_timeout = false
-        if @config.timeout
-          was_timeout = response_time > @config.timeout
-        end
-        logger.info "#{page.request_method.to_s.upcase} #{page.url} #{response_time}s #{last_response.code} #{was_timeout}"
+        logger.info "#{page.request_method.to_s.upcase} #{page.url} #{response_time}s #{last_response.code}"
       end
 
       def request(page)
         time do
-          @last_response = send(page.request_method, page)
+          url = String.new(page.url)
+          params = page.parameters
+          @last_response = send(page.request_method, url, params)
           if @config.response_processor
-            @config.response_processor.call(@session_id, page.url, @last_response)
+            @config.response_processor.call(@session_id, url, @last_response)
           end
         end
       end
 
-      def get(page)
-        url = page.url
-        params = page.parameters
+      def get(url, params)
         if @config.request_filter
-          @config.request_filter.call(@session_id, page.request_method, url, params)
+          @config.request_filter.call(@session_id, :get, url, params)
         end
         RestClient.get(url, :cookies => cookies, :accept => HTTP_ACCEPT_HEADER)
       end
 
-      def post(page)
-        url = page.url
-        params = page.parameters
+      def post(url, params)
         if @config.request_filter
-          @config.request_filter.call(@session_id, page.request_method, url, params)
+          @config.request_filter.call(@session_id, :post, url, params)
         end
         RestClient.post(url, params, :cookies => cookies, :accept => HTTP_ACCEPT_HEADER)
       end

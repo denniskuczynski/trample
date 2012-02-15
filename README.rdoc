@@ -40,7 +40,6 @@ Trample uses a ruby DSL for configuration.
     concurrency 5
     iterations  10
     delay 1
-    timeout 5
 	request_filter &Trample::RailsHandler::request_filter
 	response_processor &Trample::RailsHandler::response_processor
     login do
@@ -60,7 +59,6 @@ Trample uses a ruby DSL for configuration.
 The above configuration will,
 - start 5 (concurrency) sessions 
 - with a (delay) of 1 second between each session
-- any requests taking longer than 5 seconds (timeout) are marked as timed out in the logs
 - by logging in as a random user at the url in the (login) block. 
 - Then, it'll hit the two urls underneath it 10 (iterations) times during each session.
 
