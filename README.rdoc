@@ -40,8 +40,8 @@ Trample uses a ruby DSL for configuration.
     concurrency 5
     iterations  10
     delay 1
-	request_filter &Trample::RailsHandler::request_filter
-	response_processor &Trample::RailsHandler::response_processor
+    request_filter &Trample::RailsHandler::request_filter
+    response_processor &Trample::RailsHandler::response_processor
     login do
       post "http://yoursite.com/login" do
         {:username => User.random.username, :password => "swordfish"}
