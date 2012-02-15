@@ -15,7 +15,7 @@ That way, you can have trample log in as several different users and request dif
 
 = Installation
 
-git clone git://github.com/jumph4x/trample.git
+git clone git://github.com/denniskuczynski/trample.git
 
 cd trample/
 
@@ -23,7 +23,7 @@ gem install jeweler
 
 gem build trample.gemspec
 
-gem install trample-0.1.0.gem
+gem install trample-0.1.1.gem
 
 gem install sevenwire-rest-client --source http://gems.github.com
 
