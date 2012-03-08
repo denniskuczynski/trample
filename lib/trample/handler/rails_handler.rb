@@ -4,7 +4,7 @@ module Trample
 
     def self.request_filter
       Proc.new do |session_id, method, url, params|
-        params.merge!(:authenticity_token =>self.getVal(session_id, 'csrf_token'))
+        params ? params.merge!(:authenticity_token =>self.getVal(session_id, 'csrf_token')) : nil
       end
     end
 
