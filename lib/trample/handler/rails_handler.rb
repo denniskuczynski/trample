@@ -4,12 +4,12 @@ module Trample
 
     def self.request_filter
       Proc.new do |session_id, method, url, params|
-        params.merge!(:authenticity_token =>self.getVal(session_id, 'csrf_token'))
+        params ? params.merge!(:authenticity_token =>self.getVal(session_id, 'csrf_token')) : nil
       end
     end
 
     def self.response_processor
-      Proc.new do |session_id, html|
+      Proc.new do |session_id, url, html|
         if !html.nil?
           auth_token = Hpricot(html).at("meta[@name='csrf-token']")
           if !auth_token.nil?
