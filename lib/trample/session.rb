@@ -64,5 +64,26 @@ module Trample
         end
         RestClient.post(url, params, :cookies => cookies, :accept => HTTP_ACCEPT_HEADER)
       end
+      
+      def put(url, params)
+        if @config.request_filter
+          @config.request_filter.call(@session_id, :put, url, params)
+        end
+        RestClient.put(url, params, :cookies => cookies, :accept => HTTP_ACCEPT_HEADER)
+      end
+      
+      def delete(url, params)
+        if @config.request_filter
+          @config.request_filter.call(@session_id, :delete, url, params)
+        end
+        RestClient.delete(url, params, :cookies => cookies, :accept => HTTP_ACCEPT_HEADER)
+      end
+
+      def head(url, params)
+        if @config.request_filter
+          @config.request_filter.call(@session_id, :delete, url, params)
+        end
+        RestClient.head(url, params, :cookies => cookies, :accept => HTTP_ACCEPT_HEADER)
+      end
   end
 end

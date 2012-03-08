@@ -30,6 +30,18 @@ module Trample
       @pages << Page.new(:post, url, think_time, params || block)
     end
 
+    def put(url, think_time=0, params = nil, &block)
+      @pages << Page.new(:put, url, think_time, params || block)
+    end
+    
+    def delete(url, think_time=0, params = nil, &block)
+      @pages << Page.new(:delete, url, think_time, params || block)
+    end    
+
+    def head(url, think_time=0, &block)
+      @pages << Page.new(:delete, url, think_time, block || {})
+    end    
+
     def login
       if block_given?
         yield
